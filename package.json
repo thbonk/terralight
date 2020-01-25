@@ -2,17 +2,24 @@
   "name": "terralight",
   "version": "0.0.1",
   "description": "TerraLight is a script to control the lights of a terrarium using Apple HomeKit and Homebridge",
-  "main": "build/index.js",
+  "main": "build/main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
   },
   "keywords": [
     "terrarium",
-    "homekit"
+    "homekit",
+    "daylight",
+    "control"
   ],
   "author": "Thomas Bonk <thomas@meandmymac.de>",
   "license": "Apache-2.0",
   "devDependencies": {
     "typescript": "^3.7.5"
+  },
+  "dependencies": {
+    "@types/node": "^13.5.0",
+    "typescript-logging": "^0.6.4"
   }
 }

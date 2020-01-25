@@ -52,7 +52,6 @@ const switchIsOn = requestSwitchState(config);
 if (!switchIsOn && isAfter(state.sunrise as Date) && !isAfter(state.sunset as Date)) {
   // - switch=0 && after sunrise && not after sunset: set switch=1
   turnSwitchOn(config);
-
 } else if(switchIsOn && isAfter(state.sunset as Date)) {
   // - switch=1 && after sunset: set switch=0
   turnSwitchOff(config);

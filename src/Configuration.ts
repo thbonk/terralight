@@ -19,13 +19,18 @@ import fs from 'fs';
 /**
  * This interface provides the structure for the configuration loaded from a JSON file.
  */
-interface Configuration {
+export interface Configuration {
     /**
      * URL to be requested for turning the light switch on or off.
      * Placeholders:
      * - ${state}: `true` to turn the switch on, `false` to turn the switch off
      */
-    switchUrl: string;
+    toggleSwitchUrl: string;
+
+    /**
+     * URL to requesting the switch state.
+     */
+    switchStateUrl: string;
 
     /**
      * URL to be requested for retrieving the sunrise and sunset.

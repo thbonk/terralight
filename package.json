@@ -13,13 +13,22 @@
     "daylight",
     "control"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thbonk/terralight.git"
+  },
   "author": "Thomas Bonk <thomas@meandmymac.de>",
+  "bugs": {
+    "url": "https://github.com/thbonk/terralight/issues"
+  },
+  "homepage": "https://github.com/thbonk/terralight",
   "license": "Apache-2.0",
   "devDependencies": {
     "typescript": "^3.7.5"
   },
   "dependencies": {
     "@types/node": "^13.5.0",
+    "sync-rest-client": "^1.0.3",
     "typescript-logging": "^0.6.4"
   }
 }

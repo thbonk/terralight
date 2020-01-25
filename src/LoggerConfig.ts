@@ -26,4 +26,4 @@ const options =
  
 // Create a named loggerfactory and pass in the options and export the factory.
 // Named is since version 0.2.+ (it's recommended for future usage)
-export const factory = LFService.createNamedLoggerFactory("LoggerFactory", options);
+export const loggerFactory = LFService.createNamedLoggerFactory("LoggerFactory", options);

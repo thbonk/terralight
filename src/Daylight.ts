@@ -39,8 +39,8 @@ interface DaylightResponse {
 }
 
 export interface Daylight {
-    sunrise: Date | undefined;
-    sunset: Date | undefined;
+    sunrise: Date;
+    sunset: Date;
 }
 
 export function requestDaylight(config: Configuration): Daylight {

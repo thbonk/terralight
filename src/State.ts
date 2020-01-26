@@ -15,9 +15,27 @@
 */
 
 import {loggerFactory} from './LoggerConfig';
+import {dateWithTime} from './DateUtils';
 import fs from 'fs';
 
 const log = loggerFactory.getLogger("terralight.State");
+
+export interface StateJSON {
+    /**
+     * The current date.
+     */
+    today: string;
+
+    /**
+     * Timestamp of the sunrise
+     */
+    sunrise: string;
+
+    /**
+     * Timestamp of the sunset
+     */
+    sunset: string;
+}
 
 /**
  * This interface provides the structure for the state loaded from a JSON file.
@@ -26,43 +44,32 @@ export interface State {
     /**
      * The current date.
      */
-    today: string | Date | undefined;
+    today: Date;
 
     /**
      * Timestamp of the sunrise
      */
-    sunrise: string | Date | undefined;
+    sunrise: Date | undefined;
 
     /**
      * Timestamp of the sunset
      */
-    sunset: string | Date | undefined;
+    sunset: Date | undefined;
 }
 
 function loadState(): State {
-    var state: State = { today: new Date(), sunrise: undefined, sunset: undefined };
-
-    (state.today as Date).setHours(0);
-    (state.today as Date).setMinutes(0);
-    (state.today as Date).setSeconds(0, 0);
+    var state: State = { today: dateWithTime(0, 0, 0, 0), sunrise: undefined, sunset: undefined };
 
     try {
         let json = fs.readFileSync('/var/terralight/terralight.state','utf8');
-        let state: State = JSON.parse(json);
+        var stateJson: StateJSON = JSON.parse(json);
 
-        if (state.today != undefined) {
-            state.today = new Date(state.today);
-            state.today.setHours(0);
-            state.today.setMinutes(0);
-            state.today.setSeconds(0, 0);
+        if (stateJson.sunrise != undefined) {
+            state.sunrise = new Date(stateJson.sunrise);
         }
 
-        if (state.sunrise != undefined) {
-            state.sunrise = new Date(state.sunrise);
-        }
-
-        if (state.sunset != undefined) {
-            state.sunset = new Date(state.sunset);
+        if (stateJson.sunset != undefined) {
+            state.sunset = new Date(stateJson.sunset);
         }
     } catch {
         log.warn("Error when reading the current state; using defaults.");

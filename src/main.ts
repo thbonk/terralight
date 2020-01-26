@@ -19,7 +19,7 @@ import {configuration} from './Configuration';
 import {currentState, saveState, State} from './State';
 import {requestDaylight} from './Daylight';
 import {requestSwitchState, turnSwitchOn, turnSwitchOff} from './Switch';
-import { dateWithTime } from './DateUtils';
+import {dateWithTime} from './DateUtils';
 
 const log = loggerFactory.getLogger("terralight.main");
 

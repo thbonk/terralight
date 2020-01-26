@@ -16,6 +16,9 @@
 
 const restClient = require('sync-rest-client');
 import {Configuration} from './Configuration';
+import {loggerFactory} from './LoggerConfig';
+
+const log = loggerFactory.getLogger("terralight.Daylight");
 
 interface DaylightResponseResult {
     sunrise: Date;
@@ -46,6 +49,8 @@ export function requestDaylight(config: Configuration): Daylight {
     let response = restClient.get(url);
     let json = JSON.stringify(response["body"]);
     let daylightResponse: DaylightResponse = JSON.parse(json);
+
+    log.info(`DaylightResponse is ${json}`)
     
     return {
         sunrise: new Date(daylightResponse.results.sunrise), 

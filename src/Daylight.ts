@@ -17,6 +17,7 @@
 const restClient = require('sync-rest-client');
 import {Configuration} from './Configuration';
 import {loggerFactory} from './LoggerConfig';
+import { dateWithTime } from './DateUtils';
 
 const log = loggerFactory.getLogger("terralight.Daylight");
 
@@ -49,12 +50,22 @@ export function requestDaylight(config: Configuration): Daylight {
     let response = restClient.get(url);
     let json = JSON.stringify(response["body"]);
     let daylightResponse: DaylightResponse = JSON.parse(json);
+    let sunrise = new Date(daylightResponse.results.sunrise);
+    let sunset = new Date(daylightResponse.results.sunset);
+
+    if (sunrise.getHours() < 7) {
+        sunrise = dateWithTime(7, 0, 0, 0);
+    }
+
+    if (sunset.getHours() >= 19 && sunset.getMinutes() > 0) {
+        sunset = dateWithTime(19, 0, 0, 0);
+    }
 
     log.info(`DaylightResponse is ${json}`)
     
     return {
-        sunrise: new Date(daylightResponse.results.sunrise), 
-        sunset: new Date(daylightResponse.results.sunset)
+        sunrise: sunrise, 
+        sunset: sunset
     };
 }
 

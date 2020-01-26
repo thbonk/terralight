@@ -21,6 +21,9 @@
   "bugs": {
     "url": "https://github.com/thbonk/terralight/issues"
   },
+  "bin": {
+    "terralight": "./bin/terralight"
+  },
   "homepage": "https://github.com/thbonk/terralight",
   "license": "Apache-2.0",
   "devDependencies": {

@@ -14,13 +14,13 @@
     limitations under the License.
 */
 
-import {loggerFactory} from './LoggerConfig';
-import {dateWithTime} from './DateUtils';
+import { loggerFactory } from './LoggerConfig';
+import { dateWithTime } from './DateUtils';
 import fs from 'fs';
 
 const log = loggerFactory.getLogger("terralight.State");
 
-export interface StateJSON {
+interface StateJSON {
     /**
      * The current date.
      */
@@ -54,14 +54,14 @@ export interface State {
     /**
      * Timestamp of the sunset
      */
-    sunset: Date | undefined;
+    sunset: Date | undefined;
 }
 
 function loadState(): State {
     var state: State = { today: dateWithTime(0, 0, 0, 0), sunrise: undefined, sunset: undefined };
 
     try {
-        let json = fs.readFileSync('/var/terralight/terralight.state','utf8');
+        let json = fs.readFileSync('/var/terralight/terralight.state', 'utf8');
         var stateJson: StateJSON = JSON.parse(json);
 
         if (stateJson.sunrise != undefined) {

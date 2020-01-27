@@ -38,12 +38,24 @@ export interface Configuration {
      * - ${date}: the current date in the format `YYYY-MM-DD`
      */
     daylightServiceUrl: string;
+
+    /**
+     * The fully-qualified path to the JavaScript file that contains the 
+     * control logic.
+     * The script must contain this function:
+     * function controlLogic(state, switchIsOn, turnOn, turnOff):
+     * - {State} state
+     * - {boolean} switchIsOn
+     * - {function()} turnOn
+     * - {function()} turnOff
+     */
+    logicScriptPath: string;
 }
 
 function loadConfiguration(): Configuration {
-    let json = fs.readFileSync('/etc/terralight.json','utf8');
+    let json = fs.readFileSync('/etc/terralight.json', 'utf8');
     let config: Configuration = JSON.parse(json);
-    
+
     return config;
 }
 

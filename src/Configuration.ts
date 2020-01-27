@@ -44,6 +44,7 @@ export interface Configuration {
      * control logic.
      * The script must contain this function:
      * function controlLogic(state, switchIsOn, turnOn, turnOff):
+     * - {Date} now
      * - {State} state
      * - {boolean} switchIsOn
      * - {function()} turnOn

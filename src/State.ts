@@ -27,6 +27,11 @@ interface StateJSON {
     today: string;
 
     /**
+     * Timestamp of the last run
+     */
+    lastRunAt: string;
+
+    /**
      * Timestamp of the sunrise
      */
     sunrise: string;
@@ -47,6 +52,11 @@ export interface State {
     today: Date;
 
     /**
+     * Timestamp of the last run
+     */
+    lastRunAt: Date;
+
+    /**
      * Timestamp of the sunrise
      */
     sunrise: Date | undefined;
@@ -58,7 +68,7 @@ export interface State {
 }
 
 function loadState(): State {
-    var state: State = { today: dateWithTime(0, 0, 0, 0), sunrise: undefined, sunset: undefined };
+    var state: State = { today: dateWithTime(0, 0, 0, 0), lastRunAt: new Date(), sunrise: undefined, sunset: undefined };
 
     try {
         let json = fs.readFileSync('/var/terralight/terralight.state', 'utf8');
@@ -79,6 +89,8 @@ function loadState(): State {
 }
 
 export function saveState(state: State) {
+    state.lastRunAt = new Date();
+
     let json = JSON.stringify(state);
 
     fs.writeFileSync('/var/terralight/terralight.state', json, 'utf8');

@@ -21,6 +21,7 @@ import {requestDaylight} from './Daylight';
 import {requestSwitchState, turnSwitchOn, turnSwitchOff} from './Switch';
 import {dateWithTime} from './DateUtils';
 import fs from 'fs';
+import * as ts from 'typescript';
 
 type SwitchFunctionType = (config: Configuration) => void;
 
@@ -88,14 +89,22 @@ function callControlLogic(
   turnOff: SwitchFunctionType,
   config: Configuration) {
 
-  let source = fs.readFileSync(config.logicScriptPath, 'utf8');
-  let now = new Date();
+    let currentTime = new Date()
+    let source = fs.readFileSync(config.logicScriptPath, 'utf8');
+    let result = ts.transpile(source);
+    let runnable: any = eval(result);
+
+    runnable
+      .controlLogic(currentTime, state, switchIsOn, () => turnOn(config), () => turnOff(config));
+
+
+  /*let currentTime = new Date();
 
   eval(
     source
     + "\n"
-    + "controlLogic(now, state, switchIsOn, () => turnOn(config), () => turnOff(config));"
-  );
+    + "controlLogic(currentTime, state, switchIsOn, () => turnOn(config), () => turnOff(config));"
+  );*/
 }
 
 function nowIsAfter(timestamp: Date): boolean {

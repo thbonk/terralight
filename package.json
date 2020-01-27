@@ -28,12 +28,12 @@
   "homepage": "https://github.com/thbonk/terralight",
   "license": "Apache-2.0",
   "devDependencies": {
-    "rimraf": "^3.0.0",
-    "typescript": "^3.7.5"
+    "rimraf": "^3.0.0"
   },
   "dependencies": {
     "@types/node": "^13.5.0",
     "sync-rest-client": "^1.0.3",
-    "typescript-logging": "^0.6.4"
+    "typescript-logging": "^0.6.4",
+    "typescript": "^3.7.5"
   }
 }

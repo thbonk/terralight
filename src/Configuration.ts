@@ -43,7 +43,7 @@ export interface Configuration {
      * The fully-qualified path to the JavaScript file that contains the 
      * control logic.
      * The script must contain this function:
-     * function controlLogic(state, switchIsOn, turnOn, turnOff):
+     * function controlLogic(now, state, switchIsOn, turnOn, turnOff):
      * - {Date} now
      * - {State} state
      * - {boolean} switchIsOn

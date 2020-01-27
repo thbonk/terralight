@@ -15,11 +15,14 @@
 */
 
 import {loggerFactory} from './LoggerConfig';
-import {configuration} from './Configuration';
+import {configuration, Configuration} from './Configuration';
 import {currentState, saveState, State} from './State';
 import {requestDaylight} from './Daylight';
 import {requestSwitchState, turnSwitchOn, turnSwitchOff} from './Switch';
 import {dateWithTime} from './DateUtils';
+import fs from 'fs';
+
+type SwitchFunctionType = (config: Configuration) => void;
 
 const log = loggerFactory.getLogger("terralight.main");
 
@@ -53,6 +56,9 @@ const switchIsOn = requestSwitchState(config);
 log.info('The switch status is ' + (switchIsOn ? 'on' : 'off'));
 
 // 5. switch logic:
+callControlLogic(state, switchIsOn, turnSwitchOn, turnSwitchOff, config);
+
+/*
 if (!switchIsOn && nowIsAfter(state.sunrise as Date) && !nowIsAfter(state.sunset as Date)) {
   // - switch=0 && after sunrise && not after sunset: set switch=1
   log.info(`Turning switch on at ${new Date()}`);
@@ -67,13 +73,30 @@ if (!switchIsOn && nowIsAfter(state.sunrise as Date) && !nowIsAfter(state.sunset
   turnSwitchOff(config);
 
   log.info('Turned switch off');
-}
+}*/
 
 // 6. Save the current state
 log.info('Saving the current state');
 saveState(state);
 
 log.info("Finished terralight...");
+
+function callControlLogic(
+  state: State, 
+  switchIsOn: boolean, 
+  turnOn: SwitchFunctionType, 
+  turnOff: SwitchFunctionType,
+  config: Configuration) {
+
+  let source = fs.readFileSync(config.logicScriptPath, 'utf8');
+  let now = new Date();
+
+  eval(
+    source
+    + "\n"
+    + "controlLogic(now, state, switchIsOn, () => turnOn(config), () => turnOff(config));"
+  );
+}
 
 function nowIsAfter(timestamp: Date): boolean {
   let now = new Date();

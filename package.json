@@ -1,6 +1,6 @@
 {
   "name": "terralight",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "TerraLight is a script to control the lights of a terrarium using Apple HomeKit and Homebridge",
   "main": "build/main.js",
   "scripts": {

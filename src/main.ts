@@ -59,23 +59,6 @@ log.info('The switch status is ' + (switchIsOn ? 'on' : 'off'));
 // 5. switch logic:
 callControlLogic(state, switchIsOn, turnSwitchOn, turnSwitchOff, config);
 
-/*
-if (!switchIsOn && nowIsAfter(state.sunrise as Date) && !nowIsAfter(state.sunset as Date)) {
-  // - switch=0 && after sunrise && not after sunset: set switch=1
-  log.info(`Turning switch on at ${new Date()}`);
-
-  turnSwitchOn(config);
-
-  log.info('Turned switch on');
-} else if(switchIsOn && nowIsAfter(state.sunset as Date)) {
-  // - switch=1 && after sunset: set switch=0
-  log.info(`Turning switch off at ${new Date()}`);
-
-  turnSwitchOff(config);
-
-  log.info('Turned switch off');
-}*/
-
 // 6. Save the current state
 log.info('Saving the current state');
 saveState(state);

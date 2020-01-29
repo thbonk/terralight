@@ -96,15 +96,6 @@ function callControlLogic(
 
     runnable
       .controlLogic(currentTime, state, switchIsOn, () => turnOn(config), () => turnOff(config));
-
-
-  /*let currentTime = new Date();
-
-  eval(
-    source
-    + "\n"
-    + "controlLogic(currentTime, state, switchIsOn, () => turnOn(config), () => turnOff(config));"
-  );*/
 }
 
 function nowIsAfter(timestamp: Date): boolean {
@@ -115,12 +106,17 @@ function nowIsAfter(timestamp: Date): boolean {
 }
 
 function stateIsOutdated(state: State): boolean {
-  let now = new Date();
-  let nowMillis = now.getTime();
-  let todayMillis = (state.today as Date).getTime();
-  let difference = nowMillis - todayMillis;
-
-  return (difference > 86400000) 
+  return !isToday(state.today)
+          || !isToday(state.sunrise!) 
+          || !isToday(state.sunset!) 
           || (state.sunrise == undefined) 
           || (state.sunset == undefined);
+}
+
+function isToday(someDate: Date): boolean {
+  let today = new Date();
+
+  return someDate.getDate() == today.getDate() &&
+    someDate.getMonth() == today.getMonth() &&
+    someDate.getFullYear() == today.getFullYear();
 }

@@ -16,7 +16,7 @@ npm install git+https://github.com/thbonk/terralight.git -g
 terralight expects a configuration file under the path `/etc/terralight.json`. That file must have the following structure:
 ```json
 {
-	"toggleSwitchUrl": "<URL>",
+    "toggleSwitchUrl": "<URL>",
     "switchStateUrl": "<URL>",
 	"daylightServiceUrl": "https://api.sunrise-sunset.org/json?lat=<LAT>&lng=<LNG>&date=${date}&formatted=0",
     "logicScriptPath": "<PATH>"
@@ -62,6 +62,8 @@ interface State {
 
 Last but not least, a directory `/var/terralight` must exist, where terralight will create some files containing its
 state.
+
+cron can be used to frequently run terralight such that the light is turned on or off.
 
 ### [Homebridge](https://homebridge.io)
 
